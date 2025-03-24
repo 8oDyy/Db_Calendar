@@ -1,0 +1,40 @@
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:converters="clr-namespace:BOULICAUT_RAFFORT_Calendar.Converters"
+             x:Class="BOULICAUT_RAFFORT_Calendar.Views.TodoPage"
+             Title="To-Do List">
+
+    <ContentPage.Resources>
+        <ResourceDictionary>
+            <converters:BoolToTextDecorationConverter x:Key="BoolToTextDecorationConverter" />
+        </ResourceDictionary>
+    </ContentPage.Resources>
+
+    <VerticalStackLayout Padding="10" Spacing="10">
+        
+        <!-- Liste des tâches -->
+        <CollectionView x:Name="TodoCollectionView"
+                        ItemsLayout="VerticalList"
+                        HeightRequest="500">
+            <CollectionView.ItemTemplate>
+                <DataTemplate>
+                    <Grid Padding="10" ColumnDefinitions="Auto, *">
+                        <CheckBox IsChecked="{Binding Fait}"
+                                  CheckedChanged="CheckBox_CheckedChanged"
+                                  VerticalOptions="Center" />
+                        <Label Grid.Column="1"
+                               Text="{Binding Titre}"
+                               FontSize="16"
+                               TextDecorations="{Binding Fait, Converter={StaticResource BoolToTextDecorationConverter}}" />
+                    </Grid>
+                </DataTemplate>
+            </CollectionView.ItemTemplate>
+        </CollectionView>
+
+        <!-- Bouton pour ajouter une tâche -->
+        <Button Text="Ajouter une tâche"
+                Clicked="OnAddTaskClicked"
+                HorizontalOptions="Center" />
+        
+    </VerticalStackLayout>
+</ContentPage>
