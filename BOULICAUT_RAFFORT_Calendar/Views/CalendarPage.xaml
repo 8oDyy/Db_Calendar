@@ -1,9 +1,94 @@
-<?xml version="1.0" encoding="utf-8"?>
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage 
+    xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    x:Class="BOULICAUT_RAFFORT_Calendar.Views.CalendarPage"
+    Title="Calendrier"
+    BackgroundColor="White">
 
-<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
-             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-             x:Class="BOULICAUT_RAFFORT_Calendar.Views.CalendarPage">
-    <ContentPage.Content>
+    <VerticalStackLayout Padding="20" Spacing="20">
+
+        <!-- Navigation Mois -->
+        <Grid ColumnDefinitions="50,*,50" VerticalOptions="Center">
+            <Button Text="←"
+                    Clicked="OnPreviousMonthClicked"
+                    BackgroundColor="Transparent"
+                    FontSize="24"
+                    TextColor="Black"
+                    HeightRequest="40"
+                    WidthRequest="40"
+                    Grid.Column="0"/>
+                    
+    
+            <Label x:Name="MonthLabel"
+                   HorizontalOptions="Center"
+                   VerticalOptions="Center"
+                   FontSize="24"
+                   FontAttributes="Bold"
+                   TextColor="Black"
+                   Grid.Column="1"/>
+                   
+
+            <Button Text="→"
+                    Clicked="OnNextMonthClicked"
+                    BackgroundColor="Transparent"
+                    FontSize="24"
+                    TextColor="Black"
+                    HeightRequest="40"
+                    WidthRequest="40"
+                    Grid.Column="2"/>
+        </Grid>
+
+        <!-- Jours de la semaine -->
+        <Grid ColumnSpacing="5">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="*"/>
+            </Grid.ColumnDefinitions>
+
+            <Label Text="Lun" Grid.Column="0" HorizontalOptions="Center"/>
+            <Label Text="Mar" Grid.Column="1" HorizontalOptions="Center"/>
+            <Label Text="Mer" Grid.Column="2" HorizontalOptions="Center"/>
+            <Label Text="Jeu" Grid.Column="3" HorizontalOptions="Center"/>
+            <Label Text="Ven" Grid.Column="4" HorizontalOptions="Center"/>
+            <Label Text="Sam" Grid.Column="5" HorizontalOptions="Center"/>
+            <Label Text="Dim" Grid.Column="6" HorizontalOptions="Center"/>
+        </Grid>
+
+        <!-- Grille des jours -->
+        <Grid x:Name="CalendarGrid"
+              RowSpacing="5" ColumnSpacing="5">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="*"/>
+                <RowDefinition Height="*"/>
+                <RowDefinition Height="*"/>
+                <RowDefinition Height="*"/>
+                <RowDefinition Height="*"/>
+                <RowDefinition Height="*"/>
+            </Grid.RowDefinitions>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="*"/>
+            </Grid.ColumnDefinitions>
+        </Grid>
         
-    </ContentPage.Content>
+        
+    </VerticalStackLayout>
 </ContentPage>
+
+
+
+
+
+
+

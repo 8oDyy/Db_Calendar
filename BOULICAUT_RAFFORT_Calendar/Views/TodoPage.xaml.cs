@@ -1,44 +1,71 @@
 using BOULICAUT_RAFFORT_Calendar.Controllers;
 using BOULICAUT_RAFFORT_Calendar.Models;
+using Microsoft.Maui.Controls;
+using System.Collections.ObjectModel;
 
 namespace BOULICAUT_RAFFORT_Calendar.Views;
 
 public partial class TodoPage : ContentPage
 {
-    private readonly TodoController _todoController;
+    private readonly TodoController _controller;
 
-    public TodoPage(TodoController todoController)
+    public ObservableCollection<Evenement> Events { get; set; } = new();
+
+    public TodoPage(TodoController controller)
     {
         InitializeComponent();
-        _todoController = todoController;
-        LoadTasks();
+        _controller = controller;
+        BindingContext = this;
+
+        LoadEvents();
     }
 
-    private async void LoadTasks()
+    private async void LoadEvents()
     {
         try
         {
-            var tasks = await _todoController.GetAllTasksAsync();
-            TodoCollectionView.ItemsSource = tasks;
+            Events.Clear();
+            var eventsFromDb = await _controller.GetAllEventsAsync();
+            foreach (var ev in eventsFromDb)
+                Events.Add(ev);
         }
         catch (Exception ex)
         {
             await DisplayAlert("Erreur", $"Impossible de charger les tâches : {ex.Message}", "OK");
-            System.Diagnostics.Debug.WriteLine($"[ERREUR LoadTasks] {ex}");
         }
     }
 
     private async void CheckBox_CheckedChanged(object sender, CheckedChangedEventArgs e)
     {
-        if (sender is CheckBox checkbox && checkbox.BindingContext is TaskItem task)
+        if (sender is CheckBox checkbox && checkbox.BindingContext is TaskItem task && e.Value)
         {
-            await _todoController.ToggleTaskDoneAsync(task.Id);
+            await _controller.ToggleTaskStatusAsync(task.id);
+            LoadEvents(); // Recharge les données
         }
     }
-    
+
     private async void OnAddTaskClicked(object sender, EventArgs e)
     {
-        await Navigation.PushAsync(new AddTaskPage(_todoController));
+        if (sender is Button button && button.BindingContext is Evenement evenement)
+        {
+            string result = await DisplayPromptAsync("Nouvelle tâche", "Nom de la tâche :");
+
+            if (!string.IsNullOrWhiteSpace(result))
+            {
+                await _controller.AddTaskToEventAsync(evenement.id, result);
+                LoadEvents();
+            }
+        }
     }
 
+    private async void OnAddEventClicked(object sender, EventArgs e)
+    {
+        string result = await DisplayPromptAsync("Nouvel événement", "Nom de l'événement :");
+
+        if (!string.IsNullOrWhiteSpace(result))
+        {
+            await _controller.AddEventAsync(result);
+            LoadEvents();
+        }
+    }
 }

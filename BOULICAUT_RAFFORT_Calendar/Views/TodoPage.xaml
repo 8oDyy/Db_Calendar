@@ -1,40 +1,71 @@
 <ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-             xmlns:converters="clr-namespace:BOULICAUT_RAFFORT_Calendar.Converters"
              x:Class="BOULICAUT_RAFFORT_Calendar.Views.TodoPage"
              Title="To-Do List">
 
-    <ContentPage.Resources>
-        <ResourceDictionary>
-            <converters:BoolToTextDecorationConverter x:Key="BoolToTextDecorationConverter" />
-        </ResourceDictionary>
-    </ContentPage.Resources>
-
     <VerticalStackLayout Padding="10" Spacing="10">
-        
-        <!-- Liste des tâches -->
-        <CollectionView x:Name="TodoCollectionView"
-                        ItemsLayout="VerticalList"
-                        HeightRequest="500">
+
+        <!-- 🌀 Carrousel horizontal -->
+        <CollectionView x:Name="Carousel"
+                        ItemsSource="{Binding Events}"
+                        ItemsLayout="HorizontalList"
+                        HorizontalScrollBarVisibility="Never"
+                        HeightRequest="400">
             <CollectionView.ItemTemplate>
                 <DataTemplate>
-                    <Grid Padding="10" ColumnDefinitions="Auto, *">
-                        <CheckBox IsChecked="{Binding Fait}"
-                                  CheckedChanged="CheckBox_CheckedChanged"
-                                  VerticalOptions="Center" />
-                        <Label Grid.Column="1"
-                               Text="{Binding Titre}"
-                               FontSize="16"
-                               TextDecorations="{Binding Fait, Converter={StaticResource BoolToTextDecorationConverter}}" />
-                    </Grid>
+                    <Frame CornerRadius="20"
+                           Padding="20"
+                           Margin="100"
+                           WidthRequest="300"
+                           BackgroundColor="#E0E0E0"
+                           HasShadow="True"
+                           >
+                        <VerticalStackLayout Spacing="10">
+
+                            <!-- 🎯 Titre de l’événement -->
+                            <Label Text="{Binding nom}"
+                                   FontSize="20"
+                                   FontAttributes="Bold" />
+
+                            <!-- ✅ Liste des tâches -->
+                            <CollectionView ItemsSource="{Binding tasks}"
+                                            SelectionMode="None">
+                                <CollectionView.ItemTemplate>
+                                    <DataTemplate>
+                                        <HorizontalStackLayout Spacing="10">
+                                            <CheckBox IsChecked="{Binding fait}"
+                                                      CheckedChanged="CheckBox_CheckedChanged"
+                                                      VerticalOptions="Center" />
+                                            <Label Text="{Binding titre}" VerticalOptions="Center" />
+                                        </HorizontalStackLayout>
+                                    </DataTemplate>
+                                </CollectionView.ItemTemplate>
+                            </CollectionView>
+
+                            <!-- ➕ Bouton pour ajouter une tâche -->
+                            <Button Text="＋"
+                                    FontSize="24"
+                                    HorizontalOptions="End"
+                                    WidthRequest="50"
+                                    HeightRequest="50"
+                                    CornerRadius="25"
+                                    BackgroundColor="#BB86FC"
+                                    TextColor="Black"
+                                    Clicked="OnAddTaskClicked" />
+                        </VerticalStackLayout>
+                    </Frame>
                 </DataTemplate>
             </CollectionView.ItemTemplate>
         </CollectionView>
 
-        <!-- Bouton pour ajouter une tâche -->
-        <Button Text="Ajouter une tâche"
-                Clicked="OnAddTaskClicked"
-                HorizontalOptions="Center" />
-        
+        <!-- 🔘 Bouton global pour ajouter un événement -->
+        <Button Text="Ajouter un événement"
+                HorizontalOptions="Center"
+                Padding="10"
+                Margin="0,20,0,0"
+                BackgroundColor="#ddd"
+                Clicked="OnAddEventClicked" />
     </VerticalStackLayout>
+
 </ContentPage>
+

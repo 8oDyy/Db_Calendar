@@ -1,14 +1,14 @@
-namespace BOULICAUT_RAFFORT_Calendar.Models;
+using System.ComponentModel.DataAnnotations.Schema;
+using BOULICAUT_RAFFORT_Calendar.Models;
 
 public class TaskItem
 {
-    public int Id { get; set; }
-    public string Titre { get; set; }
-    public string Description { get; set; }
-    public bool Fait { get; set; }
-    public DateTime? Date_Echeance { get; set; }
+    public int id { get; set; }
+    public string titre { get; set; } = string.Empty;
+    public bool fait { get; set; }
 
-    // Lien vers l'événement
+    [Column("evenement_id")]
     public int EvenementId { get; set; }
-    //public Evenement Evenement { get; set; }
+
+    public Evenement? evenement { get; set; }
 }

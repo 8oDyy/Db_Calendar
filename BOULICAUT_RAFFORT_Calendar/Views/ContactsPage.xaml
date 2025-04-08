@@ -2,20 +2,32 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              x:Class="BOULICAUT_RAFFORT_Calendar.Views.ContactsPage"
              Title="Contacts">
+
     <ContentPage.Content>
-        <CollectionView x:Name="ContactsCollectionView">
-            <CollectionView.ItemTemplate>
-                <DataTemplate>
-                    <Frame Padding="10" Margin="5" BorderColor="LightGray">
-                        <StackLayout>
-                            <Label Text="{Binding Nom}" FontAttributes="Bold" />
-                            <Label Text="{Binding Prenom}" />
-                            <Label Text="{Binding Telephone}" />
-                            <Label Text="{Binding Email}" />
-                        </StackLayout>
-                    </Frame>
-                </DataTemplate>
-            </CollectionView.ItemTemplate>
-        </CollectionView>
+        <VerticalStackLayout Padding="10" Spacing="10">
+
+            <!-- Barre de recherche -->
+            <SearchBar x:Name="ContactSearchBar"
+                       Placeholder="Rechercher un contact..."
+                       TextChanged="OnSearchBarTextChanged"
+                       BackgroundColor="Beige"/>
+
+            <!-- Liste des contacts -->
+            <CollectionView x:Name="ContactsCollectionView">
+                <CollectionView.ItemTemplate>
+                    <DataTemplate>
+                        <Frame Padding="10" Margin="5" BorderColor="LightGray">
+                            <StackLayout>
+                                <Label Text="{Binding Nom}" FontAttributes="Bold" />
+                                <Label Text="{Binding Prenom}" />
+                                <Label Text="{Binding Telephone}" />
+                                <Label Text="{Binding Email}" />
+                            </StackLayout>
+                        </Frame>
+                    </DataTemplate>
+                </CollectionView.ItemTemplate>
+            </CollectionView>
+
+        </VerticalStackLayout>
     </ContentPage.Content>
 </ContentPage>

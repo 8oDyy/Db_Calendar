@@ -1,9 +1,34 @@
-<?xml version="1.0" encoding="utf-8"?>
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage
+    xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    x:Class="BOULICAUT_RAFFORT_Calendar.Views.SettingsPage"
+    Title="Paramètres"
+    BackgroundColor="White">
 
-<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
-             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-             x:Class="BOULICAUT_RAFFORT_Calendar.Views.SettingsPage">
-    <ContentPage.Content>
-        
-    </ContentPage.Content>
+    <VerticalStackLayout Padding="20" Spacing="20">
+
+        <Label Text="ID Google Calendar :" FontAttributes="Bold" />
+        <Entry x:Name="CalendarIdEntry" Placeholder="Entrez l'ID du calendrier" />
+
+        <Label Text="Chaîne de connexion DB Contacts :" FontAttributes="Bold" />
+        <Editor x:Name="ContactDbConnectionStringEditor"
+                Placeholder="Entrez la chaîne de connexion complète"
+                AutoSize="TextChanges"
+                HeightRequest="100" />
+
+        <Label Text="Chaîne de connexion DB To-Do :" FontAttributes="Bold" />
+        <Editor x:Name="TodoDbConnectionStringEditor"
+                Placeholder="Entrez la chaîne de connexion complète"
+                AutoSize="TextChanges"
+                HeightRequest="100" />
+
+        <Button Text="Enregistrer les paramètres"
+                BackgroundColor="#007AFF"
+                TextColor="White"
+                CornerRadius="10"
+                Padding="12"
+                Clicked="OnSaveSettingsClicked" />
+
+    </VerticalStackLayout>
 </ContentPage>

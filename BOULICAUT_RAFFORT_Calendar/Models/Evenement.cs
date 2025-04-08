@@ -2,10 +2,8 @@ namespace BOULICAUT_RAFFORT_Calendar.Models;
 
 public class Evenement
 {
-    public int Id { get; set; }
-    public string Nom { get; set; }
-    public DateTime Date_Creation { get; set; }
+    public int id { get; set; }
+    public string nom { get; set; } = string.Empty;
 
-    // Navigation vers les tâches liées
-    public ICollection<TaskItem> Tasks { get; set; }
+    public List<TaskItem> tasks { get; set; } = new();
 }
